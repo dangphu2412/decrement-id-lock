@@ -29,8 +29,8 @@ jobs:
 
       - name: 🔧 Build and tag image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/feed-server:latest feed-server
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/decrement-id-lock:latest decrement-id-lock
 
       - name: 📤 Push to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/feed-server:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/decrement-id-lock:latest
