@@ -15,7 +15,7 @@ spec:
         app: feed-server
     spec:
       containers:
-        - name: feed-server
+        - name: id-generator
           image: chuotcona123/feed-server:latest
           resources:
             requests:
@@ -97,7 +97,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: feed-server-deployment
+    name: id-generator-deployment
   metrics:
     - type: Resource
       resource:
