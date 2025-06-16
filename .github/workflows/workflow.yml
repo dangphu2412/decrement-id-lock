@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - id-generator/**
   workflow_dispatch:
 
 concurrency:
