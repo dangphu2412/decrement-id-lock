@@ -16,16 +16,16 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:15 # Use a specific version
+          image: postgres:alpine3.16
           ports:
             - containerPort: 5432
           env:
             - name: POSTGRES_USER
-              value: postgres
+              value: user
             - name: POSTGRES_PASSWORD
-              value: "241299"
+              value: "password"
             - name: POSTGRES_DB
-              value: baseNest
+              value: id-generator
 ---
 apiVersion: v1
 kind: Service

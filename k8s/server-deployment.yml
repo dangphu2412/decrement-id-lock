@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: feed-server-deployment
+  name: id-generator-deployment
   labels:
-    app: feed-server
+    app: id-generator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: feed-server
+      app: id-generator
   template:
     metadata:
       labels:
-        app: feed-server
+        app: id-generator
     spec:
       containers:
         - name: id-generator
-          image: chuotcona123/feed-server:latest
+          image: chuotcona123/id-generator:latest
           resources:
             requests:
               memory: "256Mi"
@@ -30,8 +30,6 @@ spec:
             - name: PORT
               value: "3000"
               # REDIS
-            - name: REDIS_URL
-              value: redis://redis:6379
 
             - name: DB_HOST
               value: postgres
@@ -42,7 +40,7 @@ spec:
             - name: DB_PASSWORD
               value: password
             - name: DB_NAME
-              value: cdc_source_db
+              value: id-generator
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -52,11 +50,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tinyurl-service
+  name: id-generator-service
 spec:
   type: NodePort
   selector:
-    app: feed-server
+    app: id-generator
   ports:
     - protocol: TCP
       port: 3000
@@ -80,7 +78,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: tinyurl-service
+                name: id-generator-service
                 port:
                   number: 3000
 
@@ -88,9 +86,9 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: feed-server-autoscaler
+  name: id-generator-autoscaler
   labels:
-    app: feed-server
+    app: id-generator
 spec:
   maxReplicas: 4
   minReplicas: 2
